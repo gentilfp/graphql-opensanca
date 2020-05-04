@@ -7,7 +7,11 @@ module Types
     field :quantity, Int, null: true
 
     def quantity
-      ProductBill.find_by(product_id: object, bill: context[:bill]).quantity
+      ProductBill.find_by(product_id: object, bill: context[:bill])&.quantity || 1
+    end
+
+    def price
+      object.price * quantity
     end
   end
 end
